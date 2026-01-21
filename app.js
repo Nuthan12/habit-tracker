@@ -2,12 +2,13 @@
  * 1. FIREBASE CONFIG
  ***********************/
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBoj4T7WEzbt5XjJbx3vgDm3cuS_gReTX4",
+  authDomain: "habit-tracker-2c135.firebaseapp.com",
+  projectId: "habit-tracker-2c135",
+  storageBucket: "habit-tracker-2c135.firebasestorage.app",
+  messagingSenderId: "552760735524",
+  appId: "1:552760735524:web:91f2ce529ce36d9f3165b1",
+  measurementId: "G-RDVZTEV302"
 };
 
 firebase.initializeApp(firebaseConfig);
