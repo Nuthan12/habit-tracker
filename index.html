@@ -1,20 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Habit Tracker</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Mobile friendly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <body>
-  <h1>My Habit Tracker</h1>
 
-  <input id="habitInput" placeholder="New habit">
-  <button onclick="addHabit()">Add</button>
+  <!-- ================= LOGIN SECTION ================= -->
+  <div id="loginSection">
+    <h1>Habit Tracker</h1>
+    <p>Track habits. Track time. Track progress.</p>
+    <button onclick="login()">Login with Google</button>
+  </div>
 
-  <ul id="habitList"></ul>
+  <!-- ================= APP SECTION ================= -->
+  <div id="appSection" style="display:none;">
 
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h2>My Habits</h2>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- ===== Reading Habit ===== -->
+    <section>
+      <h3>📘 Reading</h3>
+
+      <label>Start Time</label>
+      <input type="time" id="readingStart" />
+
+      <label>End Time</label>
+      <input type="time" id="readingEnd" />
+
+      <button onclick="saveReading()">Save Reading</button>
+    </section>
+
+    <!-- ===== Walking Habit ===== -->
+    <section>
+      <h3>🚶 Walking</h3>
+
+      <button onclick="markWalking(true)">Mark Done</button>
+      <button onclick="markWalking(false)">Mark Failed</button>
+    </section>
+
+    <!-- ===== Graph ===== -->
+    <section>
+      <h3>📊 Progress</h3>
+      <canvas id="habitChart"></canvas>
+    </section>
+
+  </div>
+
+  <!-- App Logic -->
   <script src="app.js"></script>
+
 </body>
 </html>
