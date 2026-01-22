@@ -28,6 +28,18 @@ function logout() {
   auth.signOut();
 }
 
+function onHabitChange() {
+  const habit = document.getElementById("habitSelect").value;
+
+  document.getElementById("timeSection").style.display =
+    habit === "reading" ? "block" : "none";
+
+  document.getElementById("booleanSection").style.display =
+    habit === "walking" ? "block" : "none";
+
+  if (habit) loadHabitChart(habit);
+}
+
 auth.onAuthStateChanged(user => {
   if (user) {
     document.getElementById("loginSection").style.display = "none";
