@@ -232,6 +232,7 @@ function renderChart(labels, values, habitId) {
     options: { responsive: true }
   });
 }
+
 /***********************
  * 8. AGGREGATIONS (READY)
  ***********************/
