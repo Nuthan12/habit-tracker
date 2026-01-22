@@ -29,42 +29,42 @@
   </div>
 
   <!-- ================= APP SECTION ================= -->
-  <div id="appSection" style="display:none;">
+ <div id="appSection" style="display:none;">
 
-    <!-- Header -->
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <h2>My Habits</h2>
-      <button onclick="logout()">Logout</button>
-    </div>
-
-    <!-- ===== Reading Habit ===== -->
-    <section>
-      <h3>📘 Reading</h3>
-
-      <label>Start Time</label>
-      <input type="time" id="readingStart" />
-
-      <label>End Time</label>
-      <input type="time" id="readingEnd" />
-
-      <button onclick="saveReading()">Save Reading</button>
-    </section>
-
-    <!-- ===== Walking Habit ===== -->
-    <section>
-      <h3>🚶 Walking</h3>
-
-      <button onclick="markWalking(true)">Mark Done</button>
-      <button onclick="markWalking(false)">Mark Failed</button>
-    </section>
-
-    <!-- ===== Graph ===== -->
-    <section>
-      <h3>📊 Progress</h3>
-      <canvas id="habitChart"></canvas>
-    </section>
-
+  <div class="header">
+    <h2>My Habits</h2>
+    <button onclick="logout()">Logout</button>
   </div>
+
+  <!-- Habit Selector -->
+  <label>Select Habit</label>
+  <select id="habitSelect" onchange="onHabitChange()">
+    <option value="">-- Choose Habit --</option>
+    <option value="reading">📘 Reading</option>
+    <option value="walking">🚶 Walking</option>
+  </select>
+
+  <!-- Time-based habit -->
+  <div id="timeSection" style="display:none;">
+    <label>Start Time</label>
+    <input type="time" id="startTime">
+
+    <label>End Time</label>
+    <input type="time" id="endTime">
+  </div>
+
+  <!-- Boolean habit -->
+  <div id="booleanSection" style="display:none;">
+    <button onclick="saveBoolean(true)">Mark Done</button>
+    <button onclick="saveBoolean(false)">Mark Failed</button>
+  </div>
+
+  <button onclick="saveHabit()">Save</button>
+
+  <h3>Progress</h3>
+  <canvas id="habitChart"></canvas>
+
+</div>
 
   <!-- App Logic -->
   <script src="app.js"></script>
