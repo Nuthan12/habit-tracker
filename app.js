@@ -40,6 +40,82 @@ function onHabitChange() {
   if (habit) loadHabitChart(habit);
 }
 
+async function loadHabitChart(habitId) {
+  const snap = await db.collection("activities")
+    .where("userId", "==", auth.currentUser.uid)
+    .where("habitId", "==", habitId)
+    .orderBy("date")
+    .get();
+
+  const labels = [];
+  const values = [];
+
+  snap.forEach(doc => {
+    const d = doc.data();
+    labels.push(d.date);
+    values.push(
+      habitId === "reading"
+        ? d.durationMinutes / 60
+        : d.status === "SUCCESS" ? 1 : 0
+    );
+  });
+
+  renderChart(labels, values, habitId);
+}
+
+async function saveBoolean(success) {
+  const habitId = document.getElementById("habitSelect").value;
+
+  await db.collection("activities").add({
+    userId: auth.currentUser.uid,
+    habitId,
+    date: new Date().toISOString().slice(0, 10),
+    status: success ? "SUCCESS" : "FAILED",
+    createdAt: Date.now()
+  });
+
+  loadHabitChart(habitId);
+}
+
+async function saveHabit() {
+  const habitId = document.getElementById("habitSelect").value;
+  if (!habitId) return alert("Select a habit");
+
+  let data = {
+    userId: auth.currentUser.uid,
+    habitId,
+    date: new Date().toISOString().slice(0, 10),
+    createdAt: Date.now()
+  };
+
+  if (habitId === "reading") {
+    const start = document.getElementById("startTime").value;
+    const end = document.getElementById("endTime").value;
+
+    const duration = calculateMinutes(start, end);
+
+    data.startTime = start;
+    data.endTime = end;
+    data.durationMinutes = duration;
+    data.status = duration > 0 ? "SUCCESS" : "FAILED";
+  }
+
+  await db.collection("activities").add(data);
+  loadHabitChart(habitId);
+}
+
+function calculateMinutes(start, end) {
+  let startDate = new Date(`1970-01-01T${start}`);
+  let endDate = new Date(`1970-01-01T${end}`);
+
+  if (endDate < startDate) {
+    endDate.setDate(endDate.getDate() + 1);
+  }
+  return (endDate - startDate) / 60000;
+}
+
+
+
 function calculateMinutes(start, end) {
   let startDate = new Date(`1970-01-01T${start}`);
   let endDate = new Date(`1970-01-01T${end}`);
